@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판글쓰기</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css.map}" />
+</head>
+<body>
+	<div class="container">
+		<div style="width:700px; border:1px solid #cccccc; margin :0px auto;padding:40px;">
+			<div class="mb-3 row">
+		    	<label for="staticEmail" class="col-sm-2 col-form-label">글번호</label>
+		    	<div class="col-sm-10">
+		      		<input type="text" class="form-control" th:value="${brd.no}" readonly />
+		    	</div>
+		  	</div>
+		  
+		  	<div class="mb-3 row">
+		    	<label for="inputPassword" class="col-sm-2 col-form-label">제목</label>
+		    	<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${brd.title}" readonly />
+		    	</div>
+		  	</div>
+		  	
+		  	<div class="mb-3 row">
+		    	<label for="inputPassword" class="col-sm-2 col-form-label">내용</label>
+		    	<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${brd.content}" readonly />
+		    	</div>
+		  	</div>
+		  	
+		  	<div class="mb-3 row">
+		    	<label for="inputPassword" class="col-sm-2 col-form-label">작성자</label>
+		    	<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${brd.writer}" readonly />
+		    	</div>
+		  	</div>
+		  	
+		  	<div class="mb-3 row">
+		    	<label for="inputPassword" class="col-sm-2 col-form-label">조회수</label>
+		    	<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${brd.hit}" readonly />
+		    	</div>
+		  	</div>
+		  	
+		  	<div class="mb-3 row">
+		    	<label for="inputPassword" class="col-sm-2 col-form-label">날짜</label>
+		    	<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${brd.regdate}" readonly />
+		    	</div>
+		  	</div>
+			<div>
+				<a th:href="@{/board/update.do(no=${brd.no})}">수정</a>
+				<form th:action="@{/board/delete.do}" method="post">
+					<input type="hidden" name="no" th:value="${brd.no}"/>
+					<input type="submit" value="삭제"/>
+				</form>
+			</div>
+		</div> 
+	</div>
+
+	
+		
+</body>
+</html>
