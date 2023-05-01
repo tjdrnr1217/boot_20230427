@@ -10,9 +10,25 @@
 
 </head>
 <body>
-    홈화면
-    <p th:text="${title}"></p>
-    <div th:text="${abc}"></div>
-    <a th:href="@{/board/insert.do}">게시판글쓰기</a><!-- @는 /home.do 앞에 있는 것을 자동을 불러온다-->
+    <h3>홈화면</h3>
+
+    <a th:href="@{/board/insert.do}">게시판글쓰기</a>
+
+    <div th:if="${session.USERID == null}">
+        <a th:href="@{/member/login.do}">로그인</a>
+        <a th:href="@{/member/join.do}">회원가입</a>
+    </div>
+
+    <div th:if="${session.USERID != null}">
+        <p th:text="|${session.USERNAME} 님 로그인|"></p>
+        <a th:href="@{/member/logout.do}">로그아웃</a>
+        
+        <a th:href="@{/member/update.do}">정보수정</a>
+        <a th:href="@{/member/delete.do}">회원탈퇴</a>
+
+        <div th:if="${#strings.equals(session.ROLE,'SELLER')}">
+            <a th:href="@{/seller/home.do}">판매자홈</a>
+        </div>
+    </div>
 </body>
 </html>

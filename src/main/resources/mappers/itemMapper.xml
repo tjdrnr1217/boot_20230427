@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mapper.ItemMapper">
+    <select id="selectItemImageOne" parameterType="long" resultType="com.example.dto.ItemImage">
+        SELECT * FROM itemimage WHERE no = #{no}
+    </select>
+
+    <select id="selectItemImageNo" parameterType="long" resultType="long">
+        SELECT ii.no FROM itemimage ii WHERE itemno = #{itemno}
+    </select>
+
+    <select id="selectItemList" resultType="com.example.dto.Item">
+        SELECT * FROM item ORDER BY no DESC
+    </select>
+
+    <insert id="insertItemImageOne" parameterType="com.example.dto.ItemImage">
+        INSERT INTO itemimage(filename, filesize, filetype, filedata, itemno )
+        VALUES(#{filename}, #{filesize}, #{filetype}, #{filedata}, #{itemno})
+    </insert>
+</mapper>
