@@ -3,14 +3,16 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>LOGIN</title>
+    <title>DELETE</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
 </head>
 <body>
-    <form th:action="@{/member/login.do}" method="post">
+    <form th:action="@{/member/delete.do}" method="post">
         아이디 : <input type="text" name="id" autofocus /> <br/>
         비밀번호 : <input type="password" name="password"/> <br/>
-        <input type="submit" value="로그인" />
+        <input type="submit" value="회원탈퇴" />
     </form>
 </body>
 </html>

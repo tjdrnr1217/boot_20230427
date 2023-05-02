@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>일괄수정</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <h3>일괄수정</h3>
+    <form th:action="@{/seller/updatebatch.do}" method="post">
+    <table>
+        <tr th:each=" obj : ${list}">
+            <td><input type="text" name="no[]" th:value="${obj.no}" readonly/></td>
+            <td><input type="text" name="iname[]" th:value="${obj.iname}"/></td>
+            <td><input type="text" name="icontent[]" th:value="${obj.icontent}"/></td>
+            <td><input type="number" name="iprice[]" th:value="${obj.iprice}"/></td>
+            <td><input type="number" name="iquantity[]" th:value="${obj.iquantity}"/></td>
+        </tr>
+    </table>
+    <input type="submit" value="일괄수정"/>
+    </form>
+    <a th:href="@{/seller/home.do(menu=2)}">물품관리</a>
+</body>
+</html>

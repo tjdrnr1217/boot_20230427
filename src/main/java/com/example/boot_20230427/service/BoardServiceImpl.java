@@ -1,39 +1,38 @@
-package com.example.service;
+package com.example.boot_20230427.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.dto.Board;
-import com.example.mapper.BoardMapper;
+import com.example.boot_20230427.dto.Board;
+import com.example.boot_20230427.mapper.BoardMapper;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
+    // 객체 만들기
+    // final BoardMapper bMapper 아래 mapper 객체 만든거랑 같음
     @Autowired
     BoardMapper bMapper;
-    // Autowired는 interface에서 사용할 수가 없다
 
-    // 게시글 추가
     @Override
     public int insertBoardOne(Board obj) {
-        try{
+        try {
             return bMapper.insertBoardOne(obj);
-        }
-        catch(Exception e){       
-            throw new UnsupportedOperationException("Unimplemented method 'insertBoardOne'");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;            
         }
     }
 
-    // 게시글 전체 조회
     @Override
     public List<Board> selectBoardList() {
-        try{
+        try {
             return bMapper.selectBoardList();
-        }
-        catch(Exception e){
-            throw new UnsupportedOperationException("Unimplemented method 'selectBoard'");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
         
     }
@@ -43,19 +42,20 @@ public class BoardServiceImpl implements BoardService {
         try {
             return bMapper.selectBoardOne(no);
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'selectBoardOne'"); 
+            e.printStackTrace();
+            return null;
         }
         
     }
 
     @Override
-    public int updateBoardOne(Board obj) {
+    public int updateBoardOne(Board board) {
         try {
-            return bMapper.updateBoardOne(obj);
+            return bMapper.updateBoardOne(board);
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'updateBoardOne'");
+            e.printStackTrace();
+            return 0;
         }
-        
     }
 
     @Override
@@ -63,9 +63,10 @@ public class BoardServiceImpl implements BoardService {
         try {
             return bMapper.deleteBoardOne(no);
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'deleteBoardOne'");
+            e.printStackTrace();
+            return 0;
         }
-        
     }
 
+    
 }

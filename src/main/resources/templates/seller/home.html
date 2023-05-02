@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>판매자 홈</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+
+    <a th:href="@{/seller/home.do(menu=1)}">물품일괄추가</a>
+    <a th:href="@{/seller/home.do(menu=2)}">물품관리(일괄수정, 일괄삭제)</a>
+    <a th:href="@{/seller/home.do(menu=3)}">주문관리</a>
+    <hr/>
+
+    <div th:if="${#strings.equals(param.menu,'1')}">
+        <h3>물품일괄추가</h3>
+        <form th:action="@{/seller/home.do?(menu=1)}" method="post">
+            <th:block th:each="num: ${#numbers.sequence(1,3)}">
+                <input type="text" th:value="|물품명${num}|" name="iname[]" placeholder="물품명" />
+                <input type="text" value="b" name="icontent[]" placeholder="물품내용" />
+                <input type="number" value="111" name="iprice[]" placeholder="물품가격" />
+                <input type="number" value="222" name="iquantity[]" placeholder="물품수량" />
+                <br/>
+            </th:block>
+            <input type="submit" value="일괄추가" />
+        </form>
+    </div>
+
+    <div th:if="${#strings.equals(param.menu,'2')}">
+        <h3>물품관리</h3>
+        <form th:action="@{/seller/home.do(menu=2)}" method="post" id="form2">
+            <table>
+                <caption><h2>물품목록</h2></caption>
+                <thead>
+                    <tr>
+                        <th>물품 선택</th>
+                        <th>물품 번호</th>
+                        <th>물품 이름</th>
+                        <th>물품 내용</th>
+                        <th>물품 가격</th>
+                        <th>물품 수량</th>
+                        <th>물품 등록 날짜</th>
+                        <th>판매자아이디</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="one : ${list}">
+                        <td><input type="checkbox" name="chk[]" th:value="${one.no}"/></td>
+                        <td th:text="${one.no}"></td>
+                        <td th:text="${one.iname}"></td>
+                        <td th:text="${one.icontent}"></td>
+                        <td th:text="${one.iprice}"></td>
+                        <td th:text="${one.iquantity}"></td>
+                        <td th:text="${one.regdate}"></td>
+                        <td th:text="${one.seller}"></td>
+                        <br/>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="hidden" name="btn" id="btn" />
+            <input type="button" value="일괄삭제" onclick="deleteItemAction()"/>
+            <input type="button" value="일괄수정" onclick="updateItemAction()"/>
+        </form>
+    </div>
+
+    <div th:if="${#strings.equals(param.menu,'3')}">
+        <h3>주문관리</h3>
+    </div>
+
+    <script>
+        const form2 = document.getElementById('form2');
+        const btn = document.getElementById('btn');
+
+        function deleteItemAction() {
+            if(confirm('삭제할까요?')) {
+                btn.value='일괄삭제';
+                form2.submit();
+            }
+            
+        }
+        function updateItemAction() {
+            btn.value='일괄수정';
+            form2.submit();
+        }
+    </script>
+
+</body>
+</html>

@@ -1,38 +1,41 @@
 <!DOCTYPE html>
-<html lang="">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css.map}" />
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>게시판목록</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" th:href="@{/css/boradselect.css}"/>
 </head>
 <body>
-    <h2>게시글목록</h2>
-    <a th:href="@{/board/insert.do}">글쓰기</a>
-    <table class="table table-hover">
-        <thead>
-          <tr>
-              <th scope="col">글번호</th>
-              <th scope="col">제목</th>
-              <th scope="col">작성자</th>
-              <th scope="col">조회수</th>
-              <th scope="col">날짜</th>
-          </tr>
-        </thead>
-      <tbody>
-          <tr th:each="one : ${list}">
-            <td th:text="${one.no}"></td>
-            <td>
-                <a th:href="@{/board/selectone.do(no=${one.no})}" th:text="${one.title}"></a>
-            </td>  
-            <td th:text="${one.writer}"></td>
-            <td th:text="${one.hit}"></td>
-            <td th:text="${one.regdate}"></td>
-          </tr>
-      </tbody>
-  </table>
+    
+    <div class="tb">
+        <h2>게시글목록</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>글 번호</th>
+                    <th>글 제목</th>
+                    <th>글 작성자</th>
+                    <th>글 내용</th>
+                    <th>조회수</th>
+                    <th>작성 날짜</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="one : ${list}" >
+                    <td th:text="${one.no}"></td>
+                    <td>
+                        <a th:href="@{/board/selectone.do(no=${one.no})}" th:text="${one.title}"></a>
+                    </td>
+                    <td th:text="${one.writer}"></td>
+                    <td th:text="${one.content}"></td>
+                    <td th:text="${one.hit}"></td>
+                    <td th:text="${one.regdate}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 </body>
 </html>

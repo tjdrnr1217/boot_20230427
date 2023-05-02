@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css.map}" />
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>update</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
 </head>
 <body>
-     <form th:action="@{/board/update.do}" method="post">
-          <input type="text" name="no" th:value="${obj.no}" readonly><br/>
-          <input type="text" name="title" th:value="${obj.title}"><br/>
-          <input type="text" name="content" th:value="${obj.content}" ><br/>
-          <input type="text" name="writer" th:value="${obj.writer}"><br/>
-          <input type="text" th:value="${obj.hit}" readonly><br/>
-          <input type="text" th:value="${obj.regdate}" readonly><br/>
-          <input type="submit" value="수정"><br/>
-     </form>
-     
+    <form th:action="@{/board/update.do}" method="post">
+        게시판 번호<input th:value="${board.no}" name="no" readonly></input> <br/>
+        게시판 제목<input th:value="${board.title}" name="title"></input> <br/>
+        게시판 작성자<input th:value="${board.writer}" name="writer"></input> <br/>
+        게시판 내용<input th:value="${board.content}" name="content"></input> <br/>
+        게시판 조회수<input th:value="${board.hit}" name="hit"></input> <br/>
+        게시판 작성날짜<input th:value="${board.regdate}" readonly></input> <br/>
+        <input type="submit" value="수정"/>
+    </form>
 </body>
 </html>

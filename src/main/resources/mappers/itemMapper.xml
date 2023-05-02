@@ -1,21 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.mapper.ItemMapper">
-    <select id="selectItemImageOne" parameterType="long" resultType="com.example.dto.ItemImage">
+<mapper namespace="com.example.boot_20230427.mapper.ItemMapper">
+
+    <select id="selectItemNoList" parameterType="arraylist" resultType="com.example.boot_20230427.dto.Item">
+        <foreach collection="array" item="tmp" separator=" , " open=" SELECT * FROM item WHERE no IN(" close=" )" >
+            #{tmp}
+        </foreach>
+    </select>
+
+    <delete id="deleteItemBatch" parameterType="arraylist">
+        DELETE FROM item WHERE no IN(
+            <foreach collection="array" item="tmp" separator=" , ">
+                #{tmp}
+            </foreach>
+        )
+    </delete>
+
+    <select id="selectItemListID" parameterType="string" resultType="com.example.boot_20230427.dto.Item">
+        SELECT * FROM ITEM WHERE seller = #{seller}
+    </select>
+
+    <select id="selectItemList" resultType="com.example.boot_20230427.dto.Item">
+        SELECT * FROM ITEM ORDER BY no DESC
+    </select>
+
+    <insert id="insertItemImageOne" parameterType="com.example.boot_20230427.dto.ItemImage">
+        INSERT INTO itemimage(no,filename,filedata,filetype,filesize,itemno,regdate)
+		VALUES(SEQ_ITEMIMAGE_NO.NEXTVAL,#{filename},#{filedata},#{filetype},#{filesize},#{itemno},CURRENT_TIMESTAMP)
+    </insert>
+    
+    <select id="selectItemImageOne" parameterType="long" resultType="com.example.boot_20230427.dto.ItemImage">
         SELECT * FROM itemimage WHERE no = #{no}
     </select>
 
     <select id="selectItemImageNo" parameterType="long" resultType="long">
-        SELECT ii.no FROM itemimage ii WHERE itemno = #{itemno}
+        SELECT i.no FROM itemimage i WHERE itemno=#{itemno}
     </select>
 
-    <select id="selectItemList" resultType="com.example.dto.Item">
-        SELECT * FROM item ORDER BY no DESC
-    </select>
-
-    <insert id="insertItemImageOne" parameterType="com.example.dto.ItemImage">
-        INSERT INTO itemimage(filename, filesize, filetype, filedata, itemno )
-        VALUES(#{filename}, #{filesize}, #{filetype}, #{filedata}, #{itemno})
+    <insert id="insertItemBatch" parameterType="list">
+        INSERT INTO item(no, iname, icontent, iprice, iquantity, seller)
+        SELECT SEQ_ITEM_NO.NEXTVAL, T1.* FROM (
+            <foreach item="obj" collection="list" separator=" UNION ALL ">
+                SELECT '${obj.iname}' INAME, '${obj.icontent}' ICONTENT, ${obj.iprice} IPRICE,
+                ${obj.iquantity} IQUANTITY, '${obj.seller}' SELLER FROM DUAL
+            </foreach>
+        ) T1
     </insert>
+
+    <update id="updateItemBatch" parameterType="list">
+        UPDATE item SET 
+            iname = (CASE
+                <foreach collection="list" item="obj" separator=" ">
+                    WHEN no=#{obj.no} THEN #{obj.iname}
+                </foreach>
+            END),
+            icontent = (CASE
+                <foreach collection="list" item="obj" separator=" ">
+                    WHEN no=#{obj.no} THEN #{obj.icontent}
+                </foreach>
+            END),
+            iprice = (CASE
+                <foreach collection="list" item="obj" separator=" ">
+                    WHEN no=#{obj.no} THEN #{obj.iprice}
+                </foreach>
+            END),
+            iquantity = (CASE
+                <foreach collection="list" item="obj" separator=" ">
+                    WHEN no=#{obj.no} THEN #{obj.iquantity}
+                </foreach>
+            END)
+        WHERE no IN(
+            <foreach collection="list" item="obj" separator=" , ">
+                #{obj.no}
+            </foreach>
+        )
+    </update>
+
 </mapper>

@@ -1,5 +1,5 @@
-package com.example.dto;
-//2023.04.028
+package com.example.boot_20230427.dto;
+
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -10,18 +10,16 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString(exclude = {"regdate"})
+@ToString(exclude= {"regdate"}) // Tostring으로 출력할때 regdate는 출력하지 않겠다 제외함
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
-	private long no; //
-	private String name;
+public class Board {
+    
+    private long no;
+	private String title;
 	private String content;
-	private long price;
-	private long quantity; //
+	private String writer;
+	private long hit;
 	private Date regdate;
-
-    private long imageNo; // 이미지 번호를 저장할 임시변수
-	
-
+    
 }

@@ -1,34 +1,33 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css.map}" />
-
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <title>Home</title>
 </head>
 <body>
-    <h3>홈화면</h3>
-
-    <a th:href="@{/board/insert.do}">게시판글쓰기</a>
-
+    홈화면
+    <p th:text="${title}"></p>
+    <div th:text="${abc}"></div>
+    <a th:href="@{/board/insert.do}">게시판 글쓰기</a>
+    <hr/>
     <div th:if="${session.USERID == null}">
         <a th:href="@{/member/login.do}">로그인</a>
         <a th:href="@{/member/join.do}">회원가입</a>
     </div>
-
     <div th:if="${session.USERID != null}">
-        <p th:text="|${session.USERNAME} 님 로그인|"></p>
+        <p th:text="${session.USERNAME}"></p>
         <a th:href="@{/member/logout.do}">로그아웃</a>
-        
+
         <a th:href="@{/member/update.do}">정보수정</a>
         <a th:href="@{/member/delete.do}">회원탈퇴</a>
 
-        <div th:if="${#strings.equals(session.ROLE,'SELLER')}">
+        <div th:if="${session.ROLE == 'seller'}">
             <a th:href="@{/seller/home.do}">판매자홈</a>
         </div>
     </div>
+
 </body>
 </html>
