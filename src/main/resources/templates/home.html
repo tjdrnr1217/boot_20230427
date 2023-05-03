@@ -1,33 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-    <title>Home</title>
+    <link rel='stylesheet' th:href="@{/css/main.css}" />
+    <script src='main.js'></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 </head>
+
 <body>
-    홈화면
-    <p th:text="${title}"></p>
-    <div th:text="${abc}"></div>
-    <a th:href="@{/board/insert.do}">게시판 글쓰기</a>
-    <hr/>
-    <div th:if="${session.USERID == null}">
+  <h3>홈화면</h3>
+   
+    <a th:href="@{/board/insert.do}">게시판글쓰기</a>
+    <div th:if="${session.USERID==null}">
         <a th:href="@{/member/login.do}">로그인</a>
         <a th:href="@{/member/join.do}">회원가입</a>
     </div>
     <div th:if="${session.USERID != null}">
-        <p th:text="${session.USERNAME}"></p>
+        <p th:text="|${session.USERNAME}님 로그인|"></p>
         <a th:href="@{/member/logout.do}">로그아웃</a>
-
         <a th:href="@{/member/update.do}">정보수정</a>
         <a th:href="@{/member/delete.do}">회원탈퇴</a>
-
-        <div th:if="${session.ROLE == 'seller'}">
+        <div th:if="${#strings.equals(session.ROLE, 'SELLER')}">
             <a th:href="@{/seller/home.do}">판매자홈</a>
         </div>
     </div>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

@@ -3,17 +3,19 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>UPDATE</title>
+    <title>회원가입</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
 </head>
 <body>
     <form th:action="@{/member/update.do}" method="post">
-        아이디 : <input type="text" name="id" th:value="${session.USERID}" readonly /> <br/>
-        비밀번호 : <input type="password" name="password"/> <br/>
-        이름 : <input type="text" name="name" th:value="${session.USERNAME}" /> <br/>
-        나이 : <input type="number" name="age" /> <br/>
-        권한 : <input type="text" name="role" th:value="${session.ROLE}" readonly/> <br/>
-        <input type="submit" value="정보수정" />
+        <input type="text" name="id" th:value="${mem.id}" autofocus readonly/><br/>
+        <input type="text" name="name"  th:value="${mem.name}"><br/>
+        <input type="number" name="age"  th:value="${mem.age}"><br/>
+        <input type="text" name="role"  th:value="${mem.role}"><br/>
+      
+        <input type="submit" value ="정보수정"/>
     </form>
 </body>
 </html>

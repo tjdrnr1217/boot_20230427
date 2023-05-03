@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <h3>고객용 회원가입화면</h3>
+    <form th:action="@{/seller/join.do}" method="post">
+        아이디:<input type="text" name="id"  autofocus/><br/>
+        암호:<input type="text" name="password"  value="a"/><br/>
+        이름:<input type="text" name="name" value="가나다"/><br/>
+        나이:<input type="text" name="age" value="11" /><br/>
+        권한:<input type="text" name="role" value="SELLER" readonly /><br/>
+        <input type="submit" value="회원가입">
+    </form>
+    
+</body>
+</html>

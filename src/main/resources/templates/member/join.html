@@ -3,17 +3,19 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>JOIN</title>
+    <title>회원가입</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
 </head>
 <body>
     <form th:action="@{/member/join.do}" method="post">
-        아이디 : <input type="text" name="id" autofocus /> <br/>
-        비밀번호 : <input type="password" name="password" value="a" /> <br/>
-        이름 : <input type="text" name="name" value="b" /> <br/>
-        나이 : <input type="number" name="age" value="1" /> <br/>
-        권한 : <input type="text" name="role" value="customer" /> <br/>
-        <input type="submit" value="회원가입" />
+        <input type="text" name="id" autofocus/><br/>
+        <input type="text"  name="password" value="a"><br/>
+        <input type="text" name="name"  value="b"><br/>
+        <input type="number" name="age"  value="1"><br/>
+        <input type="text" name="role" value="CUSTOMER"/><br/>
+        <input type="submit" value ="회원가입"/>
     </form>
 </body>
 </html>
