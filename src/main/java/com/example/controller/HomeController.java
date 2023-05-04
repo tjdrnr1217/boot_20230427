@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+// 프론트엔드 + 벡엔드 Restful api 연동 가능자 + mysql, oracle, mongodb... + jpa + mybatis + aws이해가능
+
 @Controller
 public class HomeController {
     
@@ -22,7 +24,7 @@ public class HomeController {
             System.out.println(user.toString());
         }
         model.addAttribute("user", user);
-        return "home";
+        return "home copy";
     }
 
     // 127.0.0.1:9090/ROOT/403page.do

@@ -10,6 +10,7 @@ import com.example.dto.Member;
 @Mapper
 public interface MemberMapper {
 	
+	public int updateMemberdb(Member obj);
 	public int insertMemberOne(Member obj);
 	
     public Member selectMemberone(Member obj);

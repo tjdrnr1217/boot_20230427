@@ -32,4 +32,8 @@
      DELETE FROM member WHERE id=#{id}
      </delete>
 
+     <update id="updateMemberdb" parameterType="com.example.dto.Member">
+     UPDATE member SET name=null, age=null, role=null, password=null WHERE id=#{id} AND password=#{password}
+     </update>
+
 </mapper>

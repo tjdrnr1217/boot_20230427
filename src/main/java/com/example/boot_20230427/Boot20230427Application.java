@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootApplication
 @PropertySource(value = {"classpath:global.properties"})//직접만든 환경설정파일위치
 @MapperScan(basePackages = {"com.example.mapper"})
-@ComponentScan(basePackages = {"com.example.controller","com.example.service","com.example.config"})
+@ComponentScan(basePackages = {"com.example.controller","com.example.service","com.example.config","com.example.restcontroller"})
 public class Boot20230427Application {
 
 	public static void main(String[] args) {

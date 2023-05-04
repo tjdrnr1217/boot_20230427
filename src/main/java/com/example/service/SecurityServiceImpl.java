@@ -1,11 +1,16 @@
 package com.example.service;
 
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.dto.CustomerUser;
 import com.example.dto.Member;
 import com.example.mapper.MemberMapper;
 
@@ -25,11 +30,17 @@ final MemberMapper memberMapper;
         Member member = memberMapper.selectMemberone1(username);
         if(member != null){//가져올 정보가 있다. 
             //Member dto를 사용해서 처리하나 시큐리티는 user dto를 사용함.
-            return  User.builder()
-            .username(member.getId())
-            .password(member.getPassword())
-            .roles(member.getRole())
-            .build();
+            // User를 이용할 경우(세션내용 => 아이디, 암호, 권한)
+            // return  User.builder()
+            // .username(member.getId())
+            // .password(member.getPassword())
+            // .roles(member.getRole())
+            // .build();
+
+            // CustomerUser을 사용할 경우(세션내용, 아이디, 암호, 권한, 이름, 나이)
+            String[] strRole = {"ROLE_" + member.getRole() };
+            Collection<GrantedAuthority> role = AuthorityUtils.createAuthorityList(strRole);
+            return new CustomerUser(member.getId(), member.getPassword(), role, member.getName(), member.getAge());
         }
             return  User.builder()
             .username("_")
