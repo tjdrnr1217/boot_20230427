@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>회원정보수정(member1)</h3>
+    
+    <form th:action="@{/member1/update.do}" th:object="${member1}" method="post">
+        <input type="text" th:field="${member1.id}" readonly /><br />
+        <input type="text" th:field="${member1.pw}" readonly /><br />
+        <input type="text" th:field="${member1.name}" /><br />
+        <input type="number" th:field="${member1.age}" /><br />
+        <input type="submit" value="회원정보수정" />
+    </form>
+
+</body>
+</html>

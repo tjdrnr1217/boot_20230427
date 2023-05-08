@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>회원목록(member1)</h3>
+    <a th:href="@{/member1/join.do}">회원가입</a>
+    
+    <form th:action="@{/member1/selectlist.do}" method="get">
+        <input type="text" name="text" placeholder="검색어"/>
+        <input type="hidden" name="page" value="1"/>
+        <input type="submit" value="검색"/>
+    </form>
+
+    <table border="1">
+        <tbody>
+            <tr th:each="obj : ${list}">
+                <td th:text="${obj.id}"></td>
+                <td th:text="${obj.pw}"></td>
+                <td th:text="${obj.name}"></td>
+                <td th:text="${obj.age}"></td>
+                <td th:text="${obj.regdate}"></td>
+                <td>
+                    <a th:href="@{/member1/update.do(id=${obj.id})}">수정</a> 
+                    <form th:action="@{/member1/delete.do}" method="post">
+                        <input type="hidden" name="id" th:value="${obj.id}" />
+                        <input type="submit" value="삭제" />
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+<th:block th:each="num : ${#numbers.sequence(1, pages )}"> 
+    <a th:href="@{/member1/selectlist.do(text=${param.text}, page=${num})}" th:text="${num}"></a>
+</th:block>
+
+</body>
+</html>
