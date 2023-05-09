@@ -18,6 +18,7 @@
                 <th>작성자</th>
                 <th>조회수</th>
                 <th>날짜</th>
+                <th>버튼</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
                 <td th:text="${obj.writer}"></td>
                 <td th:text="${obj.hit}"></td>
                 <td th:text="${obj.regdate}"></td>
+                <td><a th:href="@{/boardimage1/selectlist.do(no=${obj.no})}"><button>이미지</button></a></td>
             </tr>
 
         </tbody>

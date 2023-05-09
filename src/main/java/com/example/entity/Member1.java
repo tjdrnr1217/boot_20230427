@@ -1,10 +1,16 @@
 package com.example.entity;
 
+// import java.util.ArrayList;
 import java.util.Date;
+// import java.util.List;
 
+// import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+// import javax.persistence.FetchType;
 import javax.persistence.Id;
+// import javax.persistence.OneToMany;
+// import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,7 +42,15 @@ public class Member1 {
     private int age;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    @CreationTimestamp
+    @CreationTimestamp // 추가시에만 날짜 정보 저장
     private Date regdate;
+
+    // EAGER => member1조회시 address1을 조인하여 보여줌
+    // LAZY  => member1조회시 address1을 조인하지 않고 address1을 필요할때 조인함
+    // cascade => member1의 회원을 지우면 자동으로 address1의 관련 주소도 삭제함.
+    // @ToString.Exclude //스택오버플로우를 막기 위해서 쓴다 
+    // @OneToMany(mappedBy = "member1", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    // @OrderBy(value = "no desc")
+    // List<Address1> list = new ArrayList<>();
 
 }
