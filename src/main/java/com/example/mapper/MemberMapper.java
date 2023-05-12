@@ -3,14 +3,12 @@ package com.example.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 import com.example.dto.Member;
 
 @Mapper
 public interface MemberMapper {
 	
-	public int updateMemberdb(Member obj);
 	public int insertMemberOne(Member obj);
 	
     public Member selectMemberone(Member obj);
@@ -24,11 +22,11 @@ public interface MemberMapper {
 		"  SELECT m.id, m.name,m.role,m.age, FROM member m WHERE ID=#{obj.id} AND PASSWORD=#{obj.password}   "
 	})
 	public Member selectMemberLogin(@Param("obj") Member obj);
+	
 
-	@Update({
-		"  UPDATE member SET password=#{obj.newpassword} WHERE id=#{obj.id} AND password=#{obj.password} "
-	})
-	public int updatepwMember(@Param("obj")  Member obj);
+
+	
+	public int updatepwMember(Member obj);
 	
 	
 	@Select({

@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 import com.example.dto.Board;
 
@@ -20,7 +19,7 @@ public interface BoardMapper {
 
 
     @Select({
-		"  SELECT b.* FROM board b ORDER BY b.no DESC  "
+		"  SELECT b.* FROM board   b ORDER BY b.no DESC  "
 	})
 	public List<Board> selectBoardList();
 
@@ -28,11 +27,6 @@ public interface BoardMapper {
 		"  SELECT b.* FROM board b WHERE NO=#{no}  "
 	})
 	public Board selectBoardOne(@Param("no") long no);
-
-    @Update({
-      " UPDATE board SET hit=hit+1 WHERE no=#{no}"
-    })
-  public int updatehit(Board board);
 
    
 

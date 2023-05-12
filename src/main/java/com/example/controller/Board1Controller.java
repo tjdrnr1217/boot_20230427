@@ -1,4 +1,4 @@
-package com.example.controller.jpa;
+package com.example.controller;
 
 import java.util.List;
 
@@ -12,44 +12,43 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entity.Board1;
 import com.example.repository.Board1Repository;
+import com.example.repository.Reply1Repository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 @RequestMapping(value = "/board1")
 @RequiredArgsConstructor
+// @Slf4j
 public class Board1Controller {
-    final String format = "Board1Controller => {}";
-    final Board1Repository b1Repository;
+    final Board1Repository board1Repository;
+    final Reply1Repository reply1Repository;
+    final String format ="Board1Controller=>{}";
 
-    @GetMapping(value="/selectone.do")
-    public String selectoneGET(Model model, @RequestParam(name = "no") long no){
-        Board1 board1 = b1Repository.findById(no).orElse(null);
-        // log.info(format, board1.toString());
-        model.addAttribute("board1", board1);
+    @GetMapping(value = "/selectone.do")
+    public String selectoneGET(Model model, @RequestParam(name="no") Long no){
+        
+         model.addAttribute("obj",board1Repository.findById(no).orElse(null) );
         return "/board1/selectone";
     }
 
-
-    // 글번호 기준으로 내림차순 전체 게시글 조회
-    @GetMapping(value="/selectlist.do")
+    @GetMapping(value = "/selectlist.do")
     public String selectlistGET(Model model){
-        List<Board1> list = b1Repository.findAllByOrderByNoDesc();
-        model.addAttribute("list", list);
+           List<Board1> list= board1Repository.findAllByOrderByNoDesc();
+           model.addAttribute("list", list);
         return "/board1/selectlist";
     }
+    
 
-    @GetMapping(value="/insert.do")
+    @GetMapping(value = "/insert.do")
     public String insertGET(){
         return "/board1/insert";
     }
 
-    @PostMapping(value="/insert.do")
+    @PostMapping(value = "/insert.do")
     public String insertPOST(@ModelAttribute Board1 board1){
-        log.info(format, board1.toString());
-        b1Repository.save(board1);
+        // log.info(format, board1.toString());
+        board1Repository.save(board1);
         return "redirect:/board1/selectlist.do";
     }
 

@@ -15,30 +15,36 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 
-@Data
 @Entity
-@Table(name = "REPLY1")
-@SequenceGenerator(name = "SEQ_R1", sequenceName = "SEQ_REPLY1_NO", initialValue = 1, allocationSize = 1)
+@Table(name = "REPLY1")//생성하고자하는 테이블, 또는 생성되어 있는 테이블 매칭
+@SequenceGenerator(name="SEQ_R1", sequenceName = "SEQ_REPLY1_NO", initialValue = 1, allocationSize = 1)
 public class Reply1 {
-    
-    // 답글번호 => 기본키 시퀀스 사용
-    @Id
+    @Id  //import javax.persistence.Id; 기본키설정
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_R1")
-    private long no;
+    private long no;  //@Column 을 생략하면 변수명이 컬럼명
 
     @Lob
-    private String content; // 답글내용
+    private String content;
 
-    private String writer;  //답글작성자
-   
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    private String writer;
+
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:ss.SSS")
     @CreationTimestamp
     private Date regdate;
-
-    // 답글과 게시글의 관계 
+    
+    //답글과 게시글의 관계
     @ManyToOne
-    @JoinColumn(name = "BRDNO", referencedColumnName = "NO")
+    @JoinColumn(name="BRDNO", referencedColumnName="NO")
     private Board1 board1;
 }

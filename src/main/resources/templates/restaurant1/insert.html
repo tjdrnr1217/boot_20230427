@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>식당등록</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <div>
+        <h3>식당등록</h3>
+        <hr />
+        <form th:action="@{/restaurant1/insert.food}" method="post">
+            <input type="text" name="phone" value="p"><br/>
+            <input type="text" name="address" value="a"><br/>
+            <input type="text" name="name" value="n"><br/>
+            <input type="text" name="type" value="t"><br/>
+            <input type="submit" value="등록하기" >
+        </form>
+
+    </div>
+</body>
+</html>

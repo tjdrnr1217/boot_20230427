@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.example.handler.CustomLogoutSuccessHandler;
+import com.example.handler.CustomerLogoutSucessHandler;
 import com.example.handler.LoginSuccessHandler;
 
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class SecurityConfig {
         .antMatchers("/admin/join.do").permitAll()
         .antMatchers("/admin", "/admin/*").hasAuthority("ROLE_ADMIN") //주소가 9090/ROOT/admin ~~
         .antMatchers("/seller", "/seller/*").hasAnyAuthority("ROLE_ADMIN", "ROLE_SELLER")
-        .antMatchers("/customer", "/customer/*").hasAnyAuthority("ROLE_CUSTOMER")
+        .antMatchers("/customer", "/customer/*").hasAnyAuthority("RoleCUSTOMER")
         .anyRequest().permitAll();
 
         //403페이지설정
@@ -46,8 +46,8 @@ public class SecurityConfig {
             .loginProcessingUrl("/loginaction.do") //action은 
             .usernameParameter("id") 
             .passwordParameter("password")
+         //   .defaultSuccessUrl("/home.do") // 로그인 성공시 이동할 페이지
             .successHandler(new LoginSuccessHandler())
-            // .defaultSuccessUrl("/home.do") // 로그인 성공시 이동할 페이지
             .permitAll();
 
 
@@ -55,17 +55,21 @@ public class SecurityConfig {
         // 로그아웃 처리(반드시post로 호출)
         http.logout()
         .logoutUrl("/logout.do")
-        // .logoutSuccessUrl("/home.do")
-        .logoutSuccessHandler(new CustomLogoutSuccessHandler())
+        .logoutSuccessHandler( new CustomerLogoutSucessHandler())
+        //.logoutSuccessUrl("/home.do")
         .invalidateHttpSession(true)
         .clearAuthentication(true)
         .permitAll();
 
-        // post는 csrf를 전송해야하지만, 주소가 /api로 시작하는 모든 url은 csrf가 없어도 허용하도록 설정
+
+
+        //post는 csrf를 전송해야하지만, 주소가 /api csrf가 없어도 허용하도록 설정
         http.csrf().ignoringAntMatchers("/api/**");
 
+
+
         //서비스 등록
-        // http.userDetailsService(userDetailsService); 
+        http.userDetailsService(userDetailsService); 
 
         return http.build();
     }

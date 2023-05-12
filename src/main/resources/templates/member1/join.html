@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
 </head>
 <body>
     <h3>회원가입(member1)</h3>
     <form th:action="@{/member1/join.do}" method="post">
-        아이디 : <input type="text" name="id" /><br/>
-        비밀번호 : <input type="text" name="pw" value="a" /><br/>
-        이름 : <input type="text" name="name" value="b" /><br/>
-        나이 : <input type="number" name="age" value="1" /><br/>
-        <input type="submit" value="회원가입" />
+        <input type="text" name="id"/><br/>
+        <input type="text" name="pw" value="a"/><br/>
+        <input type="text" name="name" value="b"/><br/>
+        <input type="text" name="age" value="1"/><br/>
+        <input type="submit" value="회원가입">
     </form>
-    
 </body>
 </html>

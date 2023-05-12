@@ -9,30 +9,29 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.entity.Member1;
+import com.example.entity.Member1Projection;
 
-
-// 엔티티, 엔티티의기본키타입
+//엔티티, 엔티티의 기본키 타입
 @Repository
-public interface Member1Repository extends JpaRepository<Member1, String>{
-    
-    // JPQL => select m.* from Member1 m order by m.name desc
-    public List<Member1> findAllByOrderByNameDesc();
+public interface Member1Repository extends JpaRepository<Member1, String> {
+    //select id, name, age from member1 order by id asc
+    public List<Member1Projection> findAllByOrderByIdAsc();
 
-    // JPQL => select m.* from Member1 m where m.name like '%?%' order by m.name desc
-    public List<Member1> findByNameContainingOrderByNameDesc(String name);
+    // JPQL select m.* from Member1 order by m.name desc
+    public List<Member1> findAllByOrderByNameDesc();
 
     public long countByNameContaining(String name);
 
-    // JPQL => select m.* from Member1 m where m.name like '%?%' order by m.name desc limit 페이지네이션
-    public List<Member1> findByNameIgnoreCaseContainingOrderByNameDesc(String name, Pageable pageable);
+    // JPQL select m.* from Member1 WHERE m.name like '%'?'%'order by m.name desc
+    public List<Member1> findByNameContainingOrderByNameDesc(String name);
 
-    // mybautis mapper와 같은 #{name} #{start} #{end} => :name :start :end
-    // nativequery사용하기
-    @Query(value="SELECT * FROM ( SELECT m1.*, ROW_NUMBER() OVER (ORDER BY name DESC) rown FROM MEMBER1 m1 WHERE m1.name LIKE '%' || :name || '%' ) WHERE rown BETWEEN :start AND :end", nativeQuery=true)
-    public List<Member1> selectByNameContainingPagenation(@Param("name") String name, @Param("start") int start, @Param("end") int end );
-  
+    // JPQL select m.* from Member1 WHERE m.name like '%'?'%'order by m.name desc
+    // limit 페이지네이션
+    public List<Member1> findByNameContainingOrderByNameDesc(String name, Pageable pageable);
 
-   
+    // nativequery 사용
+    @Query(value = "SELECT * FROM ( SELECT m1.*, ROW_NUMBER() OVER (ORDER BY name DESC) rown FROM MEMBER1 m1 WHERE m1.name LIKE '%' || :name || '%' ) WHERE rown BETWEEN :start AND :end", nativeQuery = true)
+    public List<Member1> selectByNameContainingPagenation(@Param("name") String name, @Param("start") int start,
+            @Param("end") int end);
 
 }
-

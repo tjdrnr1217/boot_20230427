@@ -17,34 +17,26 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
-
 @Data
 @Entity
 @Table(name = "ADDRESS1")
-@SequenceGenerator(name = "SEQ_ADDRESS1_NO", sequenceName = "SEQ_ADDRESS1_NO", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "SEQ_A1", sequenceName = "SEQ_ADDRESS1_NO", initialValue = 1, allocationSize=1)
 public class Address1 {
-    
-    //주소번호, 기본키, 시퀀스    
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ADDRESS1_NO")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_A1")
     @Column(name = "NO")
     private long no;
 
-    // 우편번호
     @Column(name = "POSTCODE", length = 10)
     private String postcode;
 
-    // 주소(생략시 컬럼명 변수명과 같고 길이는 255)
     private String address;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    @UpdateTimestamp  //변경시에도 날짜 정보 변경
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:ss.SSS")
+    @UpdateTimestamp //변경시 날짜정보 변경
     private Date regdate;
 
-    // 외래키 (생성되는 컬럼은 MEMID 레퍼런스컬럼은 MEMBER1테이블의 ID)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MEMID", referencedColumnName = "ID" )
+    @JoinColumn(name = "MEMID", referencedColumnName = "ID")
     private Member1 member1;
 }
-    
-

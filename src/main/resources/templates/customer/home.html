@@ -1,53 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
 </head>
-
 <body>
     <h3>고객용 홈화면</h3>
-    <a th:href="@{/customer/home.do(menu=1)}">정보수정(이름,나이)</a>
-    <a th:href="@{/customer/home.do(menu=2)}">비번변경(비번입력해서 확인후 변경)</a>
-    <a th:href="@{/customer/home.do(menu=3)}">회원탈퇴(삭제, 로그아웃)</a>
+    <a th:href="@{/customer/home.do(menu=1)}">정보수정(이름,나이</a>
+    <a th:href="@{/customer/home.do(menu=2)}">암호변경(비번변경입력해서 확인후 변경</a>
+    <a th:href="@{/customer/home.do(menu=3)}">회원탈퇴(회원탈퇴 (삭제 로그아웃</a>
     <form th:action="@{/logout.do}" method="post">
-        <input type="submit" value="로그아웃" />
+        <input type="submit" value="로그아웃">
     </form>
-    <hr />
-
-    <div th:if="${#strings.equals(param.menu, '1')}">
+    <hr/>
+    <div th:if ="${#strings.equals(param.menu, '1')}">
         <form th:action="@{/customer/home.do(menu=1)}" th:object="${member}" method="post">
-            <input type="text" th:field="${member.name}" placeholder="이름" />
+            <input type="text" name="name" th:field="${member.name}" placeholder="이름">
             <select th:field="${member.age}">
-                <!-- <option value="전송값">화면에보이는것</option> -->
-                <option th:each="num : ${#numbers.sequence(1,120)}" th:value="${num}" th:text="|나이 ${num}|" />
+                <!-- <option value="전송값">화면에 보이는것</option>  ||입력해야 문자열 가능-->
+                <option th:each="num:${#numbers.sequence(1, 120)}" th:value="${num}" th:text="|ㅋㅋ${num}|"></option>
             </select>
-            <input type="submit" value="정보변경" />
+            <!-- <input type="text" name="age" th:field="${member.age}" placeholder="나이"> -->
+            <input type="submit" placeholder="변경">
         </form>
-        <hr />
-
+        <hr/>
         <form th:object="${member}">
-            <input type="checkbox" th:each="tmp : ${checklabel}" th:text="${tmp}" th:value="${tmp}" th:field="${member.name}" />
-            <hr />
-            <input type="radio" th:each="tmp : ${checklabel}" th:text="${tmp}" th:value="${tmp}" th:field="${member.name}" />
+            <input type="checkbox" th:each="tmp :${checklabel}" th:text="${tmp}" th:value="${tmp}" th:field="${member.name}"/>
+            <hr/>
+            <input type="radio" th:each="tmp :${checklabel}" th:text="${tmp}" th:value="${tmp}" th:field="${member.name}">
         </form>
-        
+    </div>
+    <div th:if  ="${#strings.equals(param.menu, '2')}">
+        <form th:action="@{/customer/home.do(menu=2)}" method="post">
+            <input type="text" name="password" placeholder="현재비번">
+            <input type="text" name="newpassword" placeholder="바꿀비번">
+            <input type="submit" placeholder="비번변경">
+        </form>
+    </div>
+    <div th:if  ="${#strings.equals(param.menu, '3')}">
+        <form th:action="@{/customer/home.do(menu=3)}" method="post">
+            <input type="text" name="password" placeholder="현재비번">
+            <input type="submit" placeholder="탈퇴하기">
+        </form>
     </div>
 
-    <div th:if="${#strings.equals(param.menu, '2')}">
-        <form th:action="@{/customer/home.do(menu=2)}" method="post">
-            <input type="text" placeholder="현재비번" />
-            <input type="text" placeholder="바꿀비번" />
-            <input type="submit" value="비번변경" />
-        </form>
-    </div>
-    <div th:if="${#strings.equals(param.menu, '3')}">
-        <form th:action="@{/customer/home.do(menu=3)}" method="post">
-            <input type="text" placeholder="현재비번" />
-            <input type="submit" value="탈퇴변경" />
-        </form>
-    </div>
 </body>
 </html>

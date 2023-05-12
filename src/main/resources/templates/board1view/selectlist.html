@@ -1,60 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <h3> 게시판목록(board1view)</h3>
-    <hr/>
+    <h3>게시판목록(board1view)</h3>
+    <a th:href="@{/board1view/selectlist.pknu}">refresh</a>
+    <hr>
+
+    <!-- jpa 메소드 명으로만 출력 -->
     <form th:action="@{/board1view/selectlist.pknu}" method="get">
         <input type="hidden" name="num" value="1">
-        <input type="text" name="no" placeholder="글번호입력"/>
-        <input type="text" name="text"placeholder="제목입력"/>
-        <input type="submit" value="글번호와 제목이 정확하게 일치하는 것만 조회"/>
+        <input type="text" name="brdno" placeholder="글번호입력">
+        <input type="text" name="brdtitle" placeholder="제목입력">
+        <input type="submit" value="글번호와 제목이 정확하게 일치하는것만 조회">
     </form>
-    <hr/>
+    <!-- AND -->
+    <hr>
 
     <form th:action="@{/board1view/selectlist.pknu}" method="get">
         <input type="hidden" name="num" value="2">
-        <input type="text" name="no" placeholder="글번호입력"/>
-        <input type="text" name="text" placeholder="제목입력"/>
-        <input type="submit" value="글번호와 제목 둘 중 하나이상 일치하는 것만 조회"/>
-    </form> 
-    <hr/>
+        <input type="text" name="brdno" placeholder="글번호입력">
+        <input type="text" name="brdtitle" placeholder="제목입력">
+        <input type="submit" value="글번호와 제목이 둘 중 하나이상 일치하는것만 조회">
+    </form>
+    <!-- OR -->
+    <hr>
 
     <form th:action="@{/board1view/selectlist.pknu}" method="get">
         <input type="hidden" name="num" value="3">
-        <input type="text" name="no" placeholder="글번호를 ,로 구분해서 입력"/>
-        <input type="submit" value="글번호에 해당하는 항목만 조회"/>
+        <input type="text" name="brdno" placeholder="글번호를 ,로 구분해서 입력">
+        <input type="submit" value="글번호에 해당하는 항목만 조회">
     </form>
-    <hr/>
-    
+    <!-- split? -->
+    <hr>
 
     <form th:action="@{/board1view/selectlist.pknu}" method="get">
         <input type="hidden" name="num" value="4">
-        <input type="text" name="text" placeholder="제목을 ,로 구분해서 입력"/>
-        <input type="submit" value="제목이 해당하는 항목만 조회"/>
+        <input type="text" name="brdtitle" placeholder="제목을 ,로 구분해서 입력">
+        <input type="submit" value="제목이 해당하는 항목만 조회">
     </form>
-     <hr/>
-  
+
+    <hr>
+
 
     <table border="1">
         <thead>
             <tr>
-                <th>글번호</th>
-                <th>글제목</th>
+                <th>글 번호</th>
+                <th>글 제목</th>
+
             </tr>
         </thead>
         <tbody>
             <tr th:each="obj : ${list}">
                 <td th:text="${obj.no}"></td>
                 <td th:text="${obj.title}"></td>
+
+
             </tr>
         </tbody>
+
     </table>
-    
+
 </body>
+
 </html>

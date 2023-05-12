@@ -3,7 +3,7 @@
 
 <mapper namespace="com.example.mapper.BoardMapper">
     <update id="updateBoard" parameterType="com.example.dto.Board">
-        UPDATE BOARD SET title=#{title}, content=#{content}, writer=#{writer} WHERE no=#{no}
+        UPDATE BOARD SET title=#{title}, content=#{content}, writer=#{writer}, hit=#{hit} WHERE no=#{no}
     </update>
 
     <delete id="deleteBoard" parameterType="long">

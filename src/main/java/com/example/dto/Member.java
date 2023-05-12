@@ -17,9 +17,10 @@ public class Member {
 
 	private String id;
 	public String password;
+	public String newpassword;
 	public String name;
 	public String role;
-	public int age;
+	public long age;
 	private Date regdate;
 
 	

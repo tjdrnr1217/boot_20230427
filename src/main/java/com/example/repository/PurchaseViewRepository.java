@@ -1,13 +1,11 @@
-package com.example.repository;
+// package com.example.repository;
 
-import java.math.BigDecimal;
+// import java.math.BigDecimal;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+// import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.entity.PurchaseView;
+// import com.example.entity.PurchaseView;
 
-@Repository
-public interface PurchaseViewRepository extends JpaRepository<PurchaseView, BigDecimal>{
-       
-}
+// public interface PurchaseViewRepository extends JpaRepository<PurchaseView, BigDecimal> {
+
+// }

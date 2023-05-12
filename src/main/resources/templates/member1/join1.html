@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>join1(one to one)</h3>
+
+    <form th:action="@{/member1/join1.do}" method="post">
+        아이디 : <input type="text" name="id"/><br/>
+        비밀번호 : <input type="text" name="pw" value="a"/><br/>
+        이름 : <input type="text" name="name" value="b"/><br/>
+        나이 : <input type="text" name="age" value="1"/><br/>
+        정보 : <input type="text" name="info" value="정보"/><br/>
+        <input type="submit" value="회원가입">
+    </form>
+</body>
+</html>

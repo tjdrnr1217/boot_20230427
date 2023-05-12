@@ -25,15 +25,14 @@
 
 
      <update id="updateMember" parameterType="com.example.dto.Member">
-     UPDATE member SET name=#{name}, age=#{age} WHERE id=#{id}
+     UPDATE member SET  name=#{name}, age=#{age} WHERE id=#{id}
      </update>
 
      <delete id="deleteMember" parameterType="com.example.dto.Member">
      DELETE FROM member WHERE id=#{id}
      </delete>
 
-     <update id="updateMemberdb" parameterType="com.example.dto.Member">
-     UPDATE member SET name=null, age=null, role=null, password=null WHERE id=#{id} AND password=#{password}
+     <update id="updatepwMember" parameterType="com.example.dto.Member">
+      UPDATE member SET password=#{newpassword} WHERE id=#{id} AND password=#{password}
      </update>
-
 </mapper>
