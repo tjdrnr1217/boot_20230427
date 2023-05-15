@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>코드</td>
+                <td>이름</td>
+                <td>번호</td>
+                <td>주소</td>
+                <td>등록일자</td>
+            </tr>
+        </thead>
+        <tr th:each="obj:${list}">
+            <td th:text="${obj.lcode}"></td>
+            <td th:text="${obj.lname}"></td>
+            <td th:text="${obj.lphone}"></td>
+            <td th:text="${obj.laddress}"></td>
+            <td th:text="${obj.regdate}"></td>
+        </tr>
+    </table>
+    
+</body>
+</html>

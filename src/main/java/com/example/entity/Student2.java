@@ -29,6 +29,8 @@ public class Student2 {
 
     private String sphone;
 
+    private String spassword;
+
     @DateTimeFormat(pattern="yyyy-MM-dd HH:ss.SSS")
     @CreationTimestamp //변경시 날짜정보 변경
     @Column(updatable = false)
