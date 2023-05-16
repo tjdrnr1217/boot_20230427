@@ -2,6 +2,8 @@ package com.example.controller.jpa;
 
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,29 @@ public class Student2Controller {
 
     final Student2Repository s2Repository;
     BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
+
+    @GetMapping(value = "/home.do")
+    public String homeGET(@AuthenticationPrincipal User user,Model model){
+        try {
+            model.addAttribute("user", user);
+            return "/student2/home";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/home.do";
+        }
+    }
+
+    // 127.0.0.1:9090/ROOT/student2/login.do
+    // loginaction.do post는 만들지 않음. security에서 자동으로 처리함
+    @GetMapping(value = "/login.do")
+    public String loginGET(){
+        try {
+            return "/student2/login";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/home.do";
+        }
+    }
 
     @GetMapping(value = "/selectlist.do")
     public String selectlistGET(Model model){
