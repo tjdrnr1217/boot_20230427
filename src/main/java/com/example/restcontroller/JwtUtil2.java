@@ -10,6 +10,8 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.stereotype.Component;
 
+import com.example.entity.Student2;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtBuilder;
@@ -56,7 +58,7 @@ public class JwtUtil2 {
     }
     
     // 토큰에 대해서 검증하고 데이터를 추출하는 메소드
-    public boolean checkJwt(String token) throws Exception{
+    public Student2 checkJwt(String token) throws Exception{
         try {
             // 1. key 준비
             byte[] keyBytes = DatatypeConverter.parseBase64Binary(BASEKEY);
@@ -66,21 +68,22 @@ public class JwtUtil2 {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-            System.out.println( "추출한 아이디 => " + claims.get("id"));    
-            System.out.println( "추출한 이름   => " + claims.get("name"));    
-            return true;
+            Student2 obj = new Student2();
+            obj.setSemail((String)claims.get("id"));
+            obj.setSname((String)claims.get("name"));   
+            return obj;
         } 
         catch(ExpiredJwtException e1) {
             System.err.println("만료시간 종료" + e1.getMessage());
-            return false;
+            return null;
         }
         catch(JwtException e2) {
             System.err.println("토큰오류" + e2.getMessage());
-            return false;
+            return null;
         }
         catch(Exception e) {
             System.out.println("e1과 e2 오류 아닌 모든 오류" + e.getMessage());
-            return false;
+            return null;
         }
     }
 }

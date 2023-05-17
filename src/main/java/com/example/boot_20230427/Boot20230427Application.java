@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @PropertySource(value = {"classpath:global.properties"})//직접만든 환경설정파일위치
 @MapperScan(basePackages = {"com.example.mapper"})
-@ComponentScan(basePackages = {"com.example.controller","com.example.service","com.example.config", "com.example.restcontroller"})
+@ComponentScan(basePackages = {"com.example.controller","com.example.service","com.example.config", "com.example.restcontroller","com.example.filter"})
 
 @EntityScan(basePackages ={"com.example.entity"})// 엔티티 위치
 @EnableJpaRepositories(basePackages = {"com.example.repository"})//저장소 위치

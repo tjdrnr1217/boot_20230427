@@ -45,8 +45,8 @@ public class SecurityConfig {
         http.formLogin()
             .loginPage("/student2/login.do")
             .loginProcessingUrl("/student2/loginaction.do")
-            .usernameParameter("id") 
-            .passwordParameter("password")
+            .usernameParameter("sid") 
+            .passwordParameter("spassword")
             .defaultSuccessUrl("/student2/home.do")
             .permitAll();
 

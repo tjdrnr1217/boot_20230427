@@ -34,18 +34,28 @@ public class RestStudent2Controller {
     // 회워탈퇴, 비밀번호변경, 회원정보수정 ... 로그인이 되어애 되는 모든것.
     // 회원정보수정 => 토큰을 주세요. 검증해서 성공하면 정보수정을 진행.
     @PostMapping(value="/update.json")
-    public Map<String, Object> updatePOST(@RequestHeader(name = "token") String token) {
+    public Map<String, Object> updatePOST(@RequestHeader(name = "token") String token, @RequestBody Student2 obj) {
         Map<String, Object> retMap = new HashMap<>();
         try {
             // 1. 토큰을 받아서 출력
             log.info("{}", token);
+            log.info("{}", obj.toString());
 
             // 2. 실패시 전달값
             retMap.put( "status", 0 );
             
             // 3. 토큰을 검증 후 성공
-            if ( jwtUtil2.checkJwt(token) == true) {
-                //3. 정보를 수정함.
+            Student2 obj1 = jwtUtil2.checkJwt(token);
+            if ( obj1 != null) {
+                // 1. 이메일을 이용해서 기존 데이터 가져오기
+                Student2 obj2 = s2Repository.findById(obj1.getSemail()).orElse(null);
+
+                // 2. obj2.에 필요한 정보 저장하기
+                obj2.setSname(obj.getSname());
+                obj2.setSphone(obj.getSphone());
+
+                // 3. obj2를 다시 저장하기
+                s2Repository.save(obj2);
                 retMap.put( "status", 200 );
             }
         } catch (Exception e) {

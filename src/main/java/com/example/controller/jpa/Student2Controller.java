@@ -1,8 +1,17 @@
 package com.example.controller.jpa;
 
+import java.util.Collection;
 import java.util.List;
 
+
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -27,6 +36,40 @@ public class Student2Controller {
     final Student2Repository s2Repository;
     BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
 
+    // 127.0.0.1:9090/ROOT/student2/mylogin.do
+    @GetMapping(value = "/mylogin.do")
+    public String myloginGET(){
+        return"student2/mylogin";
+    }
+
+    @PostMapping(value = "/myloginaction.do")
+    public String myloginAction(@ModelAttribute Student2 obj){
+        try {
+            log.info("{}", obj.toString());
+            //DetailService를 사용하지 않고 세션에 저장하기
+            //기본자료읽기
+            Student2 obj1 =s2Repository.findById(obj.getSemail()).orElse(null);
+            //전달한 아이디와 읽은 데이터 암호 비교
+            if(bcpe.matches(obj.getSpassword(), obj1.getSpassword())){
+                String[] strRole = {"ROLE_STUDENT2"};
+                Collection<GrantedAuthority> role = AuthorityUtils.createAuthorityList(strRole);
+
+                //세션에 저장할 객체 생성하기(저장할 객체, null, 권한)
+                User user = new User(obj.getSemail(), obj.getSpassword(), role);  //import org.springframework.security.core.userdetails.User
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null, role);
+                //세션에 저장
+                SecurityContext context = SecurityContextHolder.createEmptyContext();
+                context.setAuthentication(authenticationToken);
+                SecurityContextHolder.setContext(context);
+                //수동으로 세션에 저장(로그인)
+
+            }
+            return "redirect:/student2/home.do";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/home.do";
+            }
+    }
     @GetMapping(value = "/home.do")
     public String homeGET(@AuthenticationPrincipal User user,Model model){
         try {
